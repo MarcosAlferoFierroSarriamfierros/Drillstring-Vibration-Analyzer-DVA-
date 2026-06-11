@@ -113,25 +113,25 @@ yaxis = dict(
     title = "Frecuencia (Hz)",
     range = [0,20],
     dtick = 1,
-    showgrid = True # <-- ¡Grid activado!
+    showgrid = True # 
 ),
 
 xaxis = dict(
     title = "Time (s)",
     dtick = 0.5,
-    showgrid = True # <-- ¡Grid activado!
+    showgrid = True # 
 ),
 yaxis2 = dict(
-    title = "Frecuencia (Hz)", # <-- Corregido a Frecuencia (el eje Y de ambos mapas mide Hz)
+    title = "Frecuencia (Hz)", # 
     range = [0,20],
     dtick = 1,
-    showgrid = True # <-- ¡Grid activado!
+    showgrid = True # 
 ),
 
 xaxis2 = dict(
     title = "Time (s)",
     dtick = 0.5,
-    showgrid = True # <-- ¡Grid activado!
+    showgrid = True # 
 )
 
 )
