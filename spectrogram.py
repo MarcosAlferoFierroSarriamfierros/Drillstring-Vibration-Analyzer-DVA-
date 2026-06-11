@@ -1,6 +1,6 @@
 import numpy as np 
 import pandas as pd 
-import plotly.graph_objects as go  # ¡Corregido el "ploty"!
+import plotly.graph_objects as go  # 
 from plotly.subplots import make_subplots
 from scipy.signal import spectrogram
 df = pd.read_csv("synthetic_mwd_signals.csv")

@@ -1,16 +1,17 @@
 import control as ctrl
-
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 
 import numpy as np
 
 import pandas as pd
+from scipy.signal import spectrogram
 
-
-
+from plotly.subplots import make_subplots
 vib_signals = pd.read_csv("synthetic_mwd_signals.csv")
 
 n_frec_in_Hertz = 200
+fs = 1000
 
 natural_frequency = n_frec_in_Hertz * 2 * np.pi  #200 Hz
 
@@ -56,7 +57,7 @@ ctrl.bode_plot(
 
     margins = True,
 
-    colors = "blue",
+    color = "blue",
 
     initial_phase = 0
 
@@ -87,6 +88,75 @@ plt.grid(True)
 
 
 plt.savefig("System_Forced_response.png")
+#Es pectrograma para la señal de salida del sensor
+frecuencias, tiempos, espectrograma = spectrogram(y_out, fs, nperseg = 250)
+#Espectrograma para la señal orginal
+frecuencias_r, tiempos_r, espectrograma_r = spectrogram(Axial_vibration, fs, nperseg = 250)
 
 plt.show() 
+
+
+fig_mixed = make_subplots(rows = 1, cols = 2, #shared_yaxes = True,
+subplot_titles = ("Signal throught sensor", "Real Signal")
+)
+fig_mixed.add_trace(
+    go.Heatmap(
+        z = espectrograma,
+        x = tiempos,
+        y = frecuencias,
+        colorscale = "Viridis",
+        colorbar = dict(
+            title = "G2/Hz",
+            x = 0.45
+        )
+    ),
+        row = 1, col = 1
+)
+
+fig_mixed.add_trace(
+    go.Heatmap(
+        z = espectrograma_r,
+        x = tiempos_r,
+        y = frecuencias_r,
+        colorscale = "Viridis",
+        colorbar = dict(
+            title = "G2/Hz",
+            x = 1.0
+        )
+    ),
+        row = 1, col = 2
+)
+
+fig_mixed.update_layout(
+title_text = "Real Signal VS Detected Signal by Sensor",
+yaxis = dict(
+    title = "Frequency (Hz)",
+    range = [0,500],
+    dtick = 50,
+    showgrid = True # 
+),
+
+xaxis = dict(
+    title = "Time (s)",
+    dtick = 0.5,
+    showgrid = True # 
+),
+yaxis2 = dict(
+    title = "Frequency (Hz)", # 
+    range = [0,500],
+    dtick = 50,
+    showgrid = True # 
+),
+
+xaxis2 = dict(
+    title = "Time (s)",
+    dtick = 0.5,
+    showgrid = True # 
+)
+
+)
+# fig.show()
+# fig_whirl.show()
+
+fig_mixed.show()
 
