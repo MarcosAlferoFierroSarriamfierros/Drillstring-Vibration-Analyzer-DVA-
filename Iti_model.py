@@ -160,3 +160,18 @@ xaxis2 = dict(
 
 fig_mixed.show()
 
+
+# APÉNDICE
+#En esta parte uso SYMPY como librería para trabjar de forma algebráica
+#los polos y ceros del sensor.
+
+import sympy as sp
+
+s = sp.symbols("s")
+num = natural_frequency**2
+den = s**2 + 2*natural_frequency*zeta*s + natural_frequency**2
+#Definimos la expresión del sensor
+H_s = num/den  
+
+roots = sp.solve(H_s, s)
+print(roots)
